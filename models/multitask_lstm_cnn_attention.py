@@ -17,22 +17,31 @@ class Attention(nn.Module):
 
 class MultitaskLSTMCNNAttention(nn.Module):
 
-    def __init__(self, input_dim = 3, cnn_channels = 32, lstm_hidden = 64):
+    def __init__(
+        self,
+        input_dim: int = 3,
+        cnn_channels: int = 32,
+        lstm_hidden: int = 64,
+        num_lstm_layers: int = 1,
+        dropout_rate: float = 0.0,
+    ):
         super().__init__()
 
         # Temporal CNN
         self.cnn = nn.Sequential(
-            nn.Conv1d(input_dim, cnn_channels, kernel_size = 3, padding = 1),
+            nn.Conv1d(input_dim, cnn_channels, kernel_size=3, padding=1),
             nn.ReLU(),
-            nn.Conv1d(cnn_channels, cnn_channels, kernel_size = 3, padding = 1),
-            nn.ReLU()
+            nn.Conv1d(cnn_channels, cnn_channels, kernel_size=3, padding=1),
+            nn.ReLU(),
         )
 
-        # LSTM
+        # LSTM (num_lstm_layers and dropout_rate are exposed for GA-based tuning)
         self.lstm = nn.LSTM(
-            input_size = cnn_channels,
-            hidden_size = lstm_hidden,
-            batch_first = True
+            input_size=cnn_channels,
+            hidden_size=lstm_hidden,
+            num_layers=num_lstm_layers,
+            dropout=dropout_rate if num_lstm_layers > 1 and dropout_rate > 0 else 0.0,
+            batch_first=True,
         )
 
         # Attention
@@ -42,14 +51,14 @@ class MultitaskLSTMCNNAttention(nn.Module):
         self.classifier = nn.Sequential(
             nn.Linear(lstm_hidden, 64),
             nn.ReLU(),
-            nn.Linear(64, 3)
+            nn.Linear(64, 3),
         )
 
         # Regression head
         self.regressor = nn.Sequential(
             nn.Linear(lstm_hidden, 64),
             nn.ReLU(),
-            nn.Linear(64, 1)
+            nn.Linear(64, 1),
         )
 
 
