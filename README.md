@@ -38,11 +38,11 @@ Why this matters?
 | Baseline (Single-task) | 69.6% | 70% | ~59% | ~78% |
 | AE + Classifier (Best) | 64.1% | 64% | ~56% | ~77% |
 | Multitask (λ = 0.5) | 69.0% | 70% | ~57% | ~77% |
-| Multitask (λ = 0.8) | 68.4% | 68.8% | 58.4% | 80.2% |
-| **Multitask + GA-optimized** | **70.6%** | **71.4%** | **60.7%** | **79.4%** |
+| Multitask (λ = 0.8) | 68.9% | 69.3% | 55.1% | 78.2% |
+| **Multitask + GA-optimized** | **71.3%** | **71.8%** | **58.8%** | **81.9%** |
 
 Key result:
-Multitask learning with GA-optimized hyperparameters achieved the best overall accuracy (70.6%) and macro F1 (71.4%), with consistent improvements across all three braking classes compared to the non-optimized multitask baseline.
+Multitask learning with GA-optimized hyperparameters achieved the best overall accuracy (71.3%) and macro F1 (71.8%), with consistent improvements across all three braking classes compared to the non-optimized multitask baseline. Emergency Braking F1 reached 81.9%, the most safety-critical class.
 
 ---
 

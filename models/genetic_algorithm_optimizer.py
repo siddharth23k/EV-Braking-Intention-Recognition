@@ -364,11 +364,11 @@ def run_ga_optimization():
     ga = GeneticAlgorithmOptimizer(
         train_dataset=train_ds,
         val_dataset=val_ds,
-        population_size=10,
-        generations=5,
+        population_size=20,
+        generations=10,
         mutation_rate=0.15,
         tournament_size=3,
-        max_epochs=10,
+        max_epochs=15,
     )
 
     best_hp, best_f1, fitness_curve = ga.run()
